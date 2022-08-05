@@ -10,16 +10,16 @@
         const root = document.getElementById("root");
         const App = () => {
             const [amount, setAmount] = React.useState(0);
-            const [flipped, setFlipped] = React.useState(false);
+            const [inverted, setInverted] = React.useState(false);
             const onChange = (event) => {
                 setAmount(event.target.value);
             };
             const reset = () => {
                 setAmount(0);
             };
-            const onFlip = () => {
+            const onInvert = () => {
                 reset();
-                setFlipped((current) => !current);
+                setInverted((current) => !current);
             };
             return (
                 <div>
@@ -27,14 +27,14 @@
                     <div>
                         <label htmlFor="minutes">Minutes</label>
                         {/* value(통제되는 값)와 onChange(event 리스닝)를 함께 가지고 있어야한다.*/}
-                        <input value={flipped ? amount * 60 : amount} id="minutes" placeholder="Minutes" type="number" onChange={onChange} disabled={flipped} />
+                        <input value={inverted ? amount * 60 : amount} id="minutes" placeholder="Minutes" type="number" onChange={onChange} disabled={inverted} />
                     </div>
                     <div>
                         <label htmlFor="hours">Hours</label>
-                        <input value={flipped ? amount : Math.round(amount / 60)} id="hours" placeholder="Hours" type="number" disabled={!flipped} onChange={onChange} />
+                        <input value={inverted ? amount : Math.round(amount / 60)} id="hours" placeholder="Hours" type="number" disabled={!inverted} onChange={onChange} />
                     </div>
                     <button onClick={reset}>Reset</button>
-                    <button onClick={onFlip}>Flip</button>
+                    <button onClick={onInvert}>{inverted ? 'Turn back' : 'Invert'}</button>
                 </div>
             )
         };
