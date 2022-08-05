@@ -54,11 +54,51 @@
       );
     }
     function KmToMiles() {
-      return <h3>KM 2 M</h3>;
+      const [amount, setAmount] = React.useState(0);
+      const [inverted, setInverted] = React.useState(false);
+      const onChange = (event) => {
+        setAmount(event.target.value);
+      };
+      const reset = () => {
+        setAmount(0);
+      };
+      const onInvert = () => {
+        setAmount(0);
+        setInverted((current) => !current);
+      };
+      return (
+        <div>
+          <div>
+            <label htmlFor="km">Km</label>
+            <input
+              type="number"
+              id="km"
+              placeholder="Km"
+              value={inverted ? amount * 1.609344 : amount}
+              onChange={onChange}
+              disabled={inverted}
+            />
+          </div>
+          <div>
+            <label htmlFor="miles">Miles</label>
+            <input
+              type="number"
+              id="miles"
+              placeholder="Miles"
+              value={inverted ? amount : amount / 1.609344}
+              onChange={onChange}
+              disabled={!inverted}
+            />
+          </div>
+          <button onClick={reset}>Reset</button>
+          <button onClick={onInvert}>
+            {inverted ? "Turn back" : "Invert"}
+          </button>
+        </div>
+      );
     }
     const App = () => {
-      console.log("??");
-      const [index, setIndex] = React.useState("xxx");
+      const [index, setIndex] = React.useState("1");
       const onSelect = (event) => {
         setIndex(event.target.value);
       };
@@ -71,7 +111,7 @@
             <option value="1">Km & Miles</option>
           </select>
           <hr />
-          {index === "xxx" ? "Please select your units" : null}
+          {index === "xx" ? "Please select your units" : null}
           {index === "0" ? <MinutesToHours /> : null}
           {index === "1" ? <KmToMiles /> : null}
         </div>
